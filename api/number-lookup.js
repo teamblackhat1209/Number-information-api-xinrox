@@ -28,16 +28,23 @@ module.exports = async (req, res) => {
         });
       }
 
-      // WORKING API SE DATA FETCH KAREIN
+      // API se data fetch karein
       const response = await axios.get(`https://number-info-anmol.vercel.app/?number=${number}`);
       
-      res.status(200).json({
+      // Original data se credits hata kar naya data banayein
+      const originalData = response.data;
+      
+      // Naya response banayein without unwanted credits
+      const modifiedData = {
         success: true,
         number: number,
-        data: response.data,
+        data: originalData.data, // Direct data show karein
+        credits: "Owner: loard_x79 | DM for buy API | API by xinrox",
         fetchedAt: new Date().toISOString(),
-        source: 'number-info-anmol.vercel.app'
-      });
+        source: "number-info-anmol.vercel.app"
+      };
+      
+      res.status(200).json(modifiedData);
 
     } catch (error) {
       console.error('Error:', error.message);
