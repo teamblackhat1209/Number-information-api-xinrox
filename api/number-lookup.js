@@ -12,30 +12,33 @@ module.exports = async (req, res) => {
 
   if (req.method === 'GET') {
     try {
-      const { number } = req.query;
+      const { number, key } = req.query;
+
+      // Key verify karein
+      if (!key || key !== 'xinroxbhaiya') {
+        return res.status(401).json({
+          success: false,
+          error: 'Invalid or missing key'
+        });
+      }
 
       if (!number) {
         return res.status(400).json({
           success: false,
-          error: 'Number parameter is required. Example: ?number=9960553267'
+          error: 'Number parameter is required'
         });
       }
 
-      // NAYI API SE DATA FETCH KAREIN WITH KEY
+      // API se data fetch karein
       const apiUrl = `https://ox.taitaninfo.workers.dev/?mobile=${number}`;
       
-      const response = await axios.get(apiUrl, {
-        headers: {
-          'key': 'xinroxbhaiya'
-        }
-      });
+      const response = await axios.get(apiUrl);
       
       res.status(200).json({
         success: true,
         number: number,
         data: response.data,
-        fetchedAt: new Date().toISOString(),
-        source: 'ox.taitaninfo.workers.dev'
+        fetchedAt: new Date().toISOString()
       });
 
     } catch (error) {
