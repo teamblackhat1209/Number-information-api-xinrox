@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -11,6 +13,7 @@ module.exports = async (req, res) => {
     try {
       const { number, key } = req.query;
 
+      // Key verify karein
       if (!key || key !== 'xinroxbhaiya') {
         return res.status(401).json({
           success: false,
@@ -25,24 +28,23 @@ module.exports = async (req, res) => {
         });
       }
 
-      // CUSTOM RESPONSE
+      // WORKING API SE DATA FETCH KAREIN
+      const response = await axios.get(`https://number-info-anmol.vercel.app/?number=${number}`);
+      
       res.status(200).json({
         success: true,
         number: number,
-        data: {
-          carrier: "Unknown Carrier",
-          location: "India",
-          valid: true,
-          type: "mobile"
-        },
+        data: response.data,
         fetchedAt: new Date().toISOString(),
-        note: "Source API is down, using custom response"
+        source: 'number-info-anmol.vercel.app'
       });
 
     } catch (error) {
+      console.error('Error:', error.message);
       res.status(500).json({
         success: false,
-        error: 'Server error'
+        error: 'Data fetch nahi ho paya',
+        details: error.message
       });
     }
   } else {
