@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/number-lookup.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/number-lookup",
+      "dest": "/api/number-lookup.js"
+    },
+    {
+      "src": "/api/number-info", 
+      "dest": "/api/number-lookup.js"
+    }
+  ]
+}
