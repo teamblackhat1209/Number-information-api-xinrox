@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
         data: originalData.data, // Direct data show karein
         credits: "Owner: loard_x79 | DM for buy API | API by xinrox",
         fetchedAt: new Date().toISOString(),
-        source: "number-info-anmol.vercel.app"
+        source: "number-information-api-xinrox.vercel.app"
       };
       
       res.status(200).json(modifiedData);
