@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
         success: true,
         number: number,
         data: originalData.data, // Direct data show karein
-        credits: "Owner: @roninrox | DM for buy API | API by black hat",
+        credits: "Owner: loard_x79 | DM for buy API | API by xinrox",
         fetchedAt: new Date().toISOString(),
         source: "number-information-api-xinrox.vercel.app"
       };
